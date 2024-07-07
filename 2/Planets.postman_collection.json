@@ -1,0 +1,727 @@
+{
+	"info": {
+		"_postman_id": "81cc0686-d0a9-4e69-92dd-659a1b32e750",
+		"name": "Planets",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1262156"
+	},
+	"item": [
+		{
+			"name": "PositiveTests",
+			"item": [
+				{
+					"name": "/planets",
+					"item": [
+						{
+							"name": "GetPage",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// pm.test(\"Status code is 200\", function () {\r",
+											"//     pm.response.to.have.status(299);\r",
+											"// });\r",
+											"// Проверяла корректность работы теста. Прочитала, что это - \"хорошая практика\" :)\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/planets",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"planets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ResponceTime",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Response time is less than 300ms\", function(){\r",
+											"    const limit = 300;\r",
+											"    pm.expect(pm.response.responseTime, \"Response time was longer than \" + limit + \" ms.\").to.be.below(limit);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/planets",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"planets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ResponceIsJSON",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Fixed syntax \r",
+											"pm.test(\"Response is in JSON format\", function(){\r",
+											"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/planets",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"planets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CountOfPlanets",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Number of planets equals 60', function(){\r",
+											"    const NumberOfPlanets = 60;\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.count).to.eql(NumberOfPlanets);\r",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/planets",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"planets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PageSize",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const PageSize = 10;\r",
+											"var results = pm.response.json().results;\r",
+											"\r",
+											"pm.test(\"Number of keys\", function(){\r",
+											"    pm.expect(results.count()).to.eql(PageSize)\r",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/planets",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"planets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AllPropsPresented",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											" var jsonData = pm.response.json().results[0];\r",
+											"\r",
+											"pm.test(\"Planet contains necessary fields\", function () {\r",
+											"    pm.expect(jsonData).to.have.property('name');\r",
+											"    pm.expect(jsonData).to.have.property('rotation_period');\r",
+											"    pm.expect(jsonData).to.have.property('orbital_period');\r",
+											"    pm.expect(jsonData).to.have.property('diameter');\r",
+											"    pm.expect(jsonData).to.have.property('climate');\r",
+											"    pm.expect(jsonData).to.have.property('gravity');\r",
+											"    pm.expect(jsonData).to.have.property('terrain');\r",
+											"    pm.expect(jsonData).to.have.property('surface_water');\r",
+											"    pm.expect(jsonData).to.have.property('population');\r",
+											"    pm.expect(jsonData).to.have.property('residents');\r",
+											"    pm.expect(jsonData).to.have.property('films');\r",
+											"    pm.expect(jsonData).to.have.property('created');\r",
+											"    pm.expect(jsonData).to.have.property('edited');\r",
+											"    pm.expect(jsonData).to.have.property('url');\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/planets",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"planets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "TypesOfProps",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const moment = require ('moment');\r",
+											"\r",
+											"var firstPlanet = pm.response.json().results[0];\r",
+											"\r",
+											"function propIsNum(prop) {                  \r",
+											"   pm.expect(isNaN(prop), `Value: ${prop} is a ${typeof prop} and not a number`).to.be.false;        \r",
+											"  };\r",
+											"\r",
+											"// Функция проверки URL через regexы со stack-overflow\r",
+											"// обычный new URL не работает\r",
+											"function isValidURL(str) {\r",
+											"    var pattern = new RegExp('^(https?:\\\\/\\\\/)?'+ // protocol\r",
+											"        '((([a-z\\\\d]([a-z\\\\d-]*[a-z\\\\d])*)\\\\.)+[a-z]{2,}|'+ // domain name\r",
+											"        '((\\\\d{1,3}\\\\.){3}\\\\d{1,3}))'+ // OR ip (v4) address\r",
+											"        '(\\\\:\\\\d+)?(\\\\/[-a-z\\\\d%_.~+]*)*'+ // port and path\r",
+											"        '(\\\\?[;&a-z\\\\d%_.~+=-]*)?'+ // query string\r",
+											"        '(\\\\#[-a-z\\\\d_]*)?$','i'); // fragment locator\r",
+											"    return !!pattern.test(str);\r",
+											"}\r",
+											"\r",
+											"pm.test(\"Planet contains necessary fields\", function () {\r",
+											"    pm.expect(typeof(firstPlanet.name)).eql('string');\r",
+											"    propIsNum(firstPlanet.rotation_period)\r",
+											"    propIsNum(firstPlanet.orbital_period)\r",
+											"    propIsNum(firstPlanet.diameter)\r",
+											"    pm.expect(typeof(firstPlanet.climate)).eql('string');\r",
+											"    pm.expect(typeof(firstPlanet.gravity)).eql('string');\r",
+											"    pm.expect(typeof(firstPlanet.terrain)).eql('string');\r",
+											"    propIsNum(firstPlanet.surface_water);\r",
+											"    propIsNum(firstPlanet.population);\r",
+											"    pm.expect(Array.isArray(firstPlanet.residents)).to.be.true;\r",
+											"    pm.expect(Array.isArray(firstPlanet.films)).to.be.true;\r",
+											"    pm.expect(moment(firstPlanet.created).isValid()).to.be.true; \r",
+											"    pm.expect(moment(firstPlanet.edited).isValid()).to.be.true; \r",
+											"\r",
+											"    pm.expect(isValidURL(firstPlanet.url)).to.be.true;\r",
+											"    \r",
+											"});\r",
+											"\r",
+											"\r",
+											"  "
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/planets",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"planets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "IsURLofPlanetCorrect",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var firstPlanet = pm.response.json().results[1];\r",
+											"\r",
+											"pm.sendRequest(firstPlanet.url, function (err, response) {\r",
+											"    pm.test(\"Status code is 200 for secondary request\", function () {\r",
+											"        pm.expect(response.code).to.eql(200);\r",
+											"        });\r",
+											"    });"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/planets",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"planets"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "/planet/{id}",
+					"item": [
+						{
+							"name": "GetRandomPlanet",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const moment = require ('moment');\r",
+											"\r",
+											"function propIsNum(prop) {                  \r",
+											"   pm.expect(isNaN(prop), `Value: ${prop} is a ${typeof prop} and not a number`).to.be.false;        \r",
+											"  };\r",
+											"\r",
+											"function isValidURL(str) {\r",
+											"    var pattern = new RegExp('^(https?:\\\\/\\\\/)?'+ // protocol\r",
+											"        '((([a-z\\\\d]([a-z\\\\d-]*[a-z\\\\d])*)\\\\.)+[a-z]{2,}|'+ // domain name\r",
+											"        '((\\\\d{1,3}\\\\.){3}\\\\d{1,3}))'+ // OR ip (v4) address\r",
+											"        '(\\\\:\\\\d+)?(\\\\/[-a-z\\\\d%_.~+]*)*'+ // port and path\r",
+											"        '(\\\\?[;&a-z\\\\d%_.~+=-]*)?'+ // query string\r",
+											"        '(\\\\#[-a-z\\\\d_]*)?$','i'); // fragment locator\r",
+											"    return !!pattern.test(str);\r",
+											"}\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response time is less than 300ms\", function(){\r",
+											"    const limit = 300;\r",
+											"    pm.expect(pm.response.responseTime, \"Response time was longer than \" + limit + \" ms.\").to.be.below(limit);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is in JSON format\", function(){\r",
+											"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Planet contains necessary fields\", function () {\r",
+											"    pm.expect(jsonData).to.have.property('name');\r",
+											"    pm.expect(jsonData).to.have.property('rotation_period');\r",
+											"    pm.expect(jsonData).to.have.property('orbital_period');\r",
+											"    pm.expect(jsonData).to.have.property('diameter');\r",
+											"    pm.expect(jsonData).to.have.property('climate');\r",
+											"    pm.expect(jsonData).to.have.property('gravity');\r",
+											"    pm.expect(jsonData).to.have.property('terrain');\r",
+											"    pm.expect(jsonData).to.have.property('surface_water');\r",
+											"    pm.expect(jsonData).to.have.property('population');\r",
+											"    pm.expect(jsonData).to.have.property('residents');\r",
+											"    pm.expect(jsonData).to.have.property('films');\r",
+											"    pm.expect(jsonData).to.have.property('created');\r",
+											"    pm.expect(jsonData).to.have.property('edited');\r",
+											"    pm.expect(jsonData).to.have.property('url');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Planet contains necessary fields\", function () {\r",
+											"    pm.expect(typeof(jsonData.name)).eql('string');\r",
+											"    propIsNum(jsonData.rotation_period)\r",
+											"    propIsNum(jsonData.orbital_period)\r",
+											"    propIsNum(jsonData.diameter)\r",
+											"    pm.expect(typeof(jsonData.climate)).eql('string');\r",
+											"    pm.expect(typeof(jsonData.gravity)).eql('string');\r",
+											"    pm.expect(typeof(jsonData.terrain)).eql('string');\r",
+											"    propIsNum(jsonData.surface_water);\r",
+											"    propIsNum(jsonData.population);\r",
+											"    pm.expect(Array.isArray(jsonData.residents)).to.be.true;\r",
+											"    pm.expect(Array.isArray(jsonData.films)).to.be.true;\r",
+											"    pm.expect(moment(jsonData.created).isValid()).to.be.true; \r",
+											"    pm.expect(moment(jsonData.edited).isValid()).to.be.true; \r",
+											"\r",
+											"    pm.expect(isValidURL(jsonData.url)).to.be.true;    \r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/planets/{{randomNum}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"planets",
+										"{{randomNum}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									"pm.collectionVariables.set (\"randomNum\", _.random (1,60));"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "NegativeTests",
+			"item": [
+				{
+					"name": "/planets",
+					"item": [
+						{
+							"name": "GetInvalidPage_Left",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/planets/?page=-1",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"planets",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "-1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetInvalidPage_Right",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/planets/?page=10",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"planets",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetInvalidPage_WrongUserInput",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/planets/?page=lopata",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"planets",
+										""
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "lopata"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "/planet/{id}",
+					"item": [
+						{
+							"name": "GetInvalidPlanetId_Left",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/planets/-1",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"planets",
+										"-1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetInvalidPlanetId_Right",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/planets/61",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"planets",
+										"61"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetInvalidPlanetId_WrongUserInput Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/planets/lopata",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"planets",
+										"lopata"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://swapi.dev/api/"
+		},
+		{
+			"key": "randomNum",
+			"value": ""
+		}
+	]
+}
